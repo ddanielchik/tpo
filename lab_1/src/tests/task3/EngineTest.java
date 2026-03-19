@@ -1,7 +1,8 @@
-package org.example.task3.tests;
+package task3;
 
-import org.example.task3.domain.Engine;
 import org.junit.jupiter.api.Test;
+import task_3.domain.Engine;
+import task_3.domain.SoundType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,6 +25,26 @@ class EngineTest {
         engine.stop();
 
         assertFalse(engine.isRunning());
+    }
+
+    @Test
+    void shouldMakeWhistle() {
+        Engine engine = new Engine();
+        engine.start();
+
+        engine.makeWhistle();
+
+        assertEquals(SoundType.WHISTLE, engine.getSound().getType());
+    }
+
+    @Test
+    void shouldMakeRoar() {
+        Engine engine = new Engine();
+        engine.start();
+
+        engine.makeRoar();
+
+        assertEquals(SoundType.ROAR, engine.getSound().getType());
     }
 
     @Test

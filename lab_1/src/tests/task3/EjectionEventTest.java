@@ -1,11 +1,14 @@
-package org.example.task3.tests;
+package task3;
 
-import org.example.task3.domain.*;
+import org.example.task3.domain.EjectionEvent;
+import org.example.task3.domain.SpaceCharacter;
+import org.example.task3.domain.SpaceEnvironment;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EjectionEventTest {
 
@@ -56,9 +59,10 @@ class EjectionEventTest {
     @Test
     void shouldThrowIfCharacterIsNullInsideList() {
         SpaceEnvironment env = new SpaceEnvironment(true);
+        List<SpaceCharacter> characters = java.util.Arrays.asList(new SpaceCharacter("Ford"), null);
 
         assertThrows(IllegalArgumentException.class,
-                () -> new EjectionEvent(List.of(new SpaceCharacter("Ford"), null), env));
+                () -> new EjectionEvent(characters, env));
     }
 
     @Test
