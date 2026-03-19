@@ -59,7 +59,7 @@ public class ArctgTest {
 
     @ParameterizedTest(name = "arctg({0}) = {1}")
     @DisplayName("Check between dots [-1; +1]")
-    @CsvFileSource(resources = "table_values.csv", numLinesToSkip = 1, delimiter = ';')
+    @CsvFileSource(resources = "/table_values.csv", numLinesToSkip = 1, delimiter = ';')
     void checkBetweenDotsMinus1And1(double x, double y) {
         assertAll(() -> assertEquals(y, Arctg.arctg(x), 1e-6));
     }
