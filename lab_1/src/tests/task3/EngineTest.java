@@ -1,8 +1,8 @@
 package task3;
 
+import org.example.task3.domain.Engine;
+import org.example.task3.domain.SoundType;
 import org.junit.jupiter.api.Test;
-import task_3.domain.Engine;
-import task_3.domain.SoundType;
 
 import static org.junit.jupiter.api.Assertions.*;
 

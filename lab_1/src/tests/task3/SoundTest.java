@@ -1,9 +1,9 @@
 package task3;
 
+import org.example.task3.domain.Sound;
+import org.example.task3.domain.SoundType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import task_3.domain.Sound;
-import task_3.domain.SoundType;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

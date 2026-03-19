@@ -1,8 +1,8 @@
 package task3;
 
+import org.example.task3.domain.SpaceCharacter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import task_3.domain.SpaceCharacter;
 
 import static org.junit.jupiter.api.Assertions.*;
 

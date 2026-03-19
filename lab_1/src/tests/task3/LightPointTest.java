@@ -1,7 +1,7 @@
 package task3;
 
+import org.example.task3.domain.LightPoint;
 import org.junit.jupiter.api.Test;
-import task_3.domain.LightPoint;
 
 import static org.junit.jupiter.api.Assertions.*;
 

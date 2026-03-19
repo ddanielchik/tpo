@@ -1,9 +1,9 @@
 package task3;
 
+import org.example.task3.domain.LightPoint;
+import org.example.task3.domain.SpaceEnvironment;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import task_3.domain.LightPoint;
-import task_3.domain.SpaceEnvironment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
