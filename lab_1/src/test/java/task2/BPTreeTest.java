@@ -2,7 +2,7 @@ package task2;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import task2.util.BPTree;
+import org.example.task2.BPTree;
 
 import java.util.ArrayList;
 import java.util.List;

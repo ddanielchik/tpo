@@ -15,6 +15,18 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
+        </testResources>
+
+    </build>
+
 
     <properties>
         <maven.compiler.source>22</maven.compiler.source>

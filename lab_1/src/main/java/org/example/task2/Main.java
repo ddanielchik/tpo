@@ -1,6 +1,4 @@
-package task2;
-
-import task2.util.BPTree;
+package org.example.task2;
 
 import java.util.ArrayList;
 import java.util.List;
