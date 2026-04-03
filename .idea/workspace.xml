@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dcf5c684-3fae-4ba0-b495-945d264be640" name="Changes" comment="mini refactoring">
-      <change beforePath="$PROJECT_DIR$/lab_1_отчет — копия.docx" beforeDir="false" afterPath="$PROJECT_DIR$/lab_1_отчет — копия.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +105,8 @@
       <workItem from="1773901009666" duration="82000" />
       <workItem from="1773901098746" duration="23947000" />
       <workItem from="1773965489050" duration="4052000" />
+      <workItem from="1774779439354" duration="63000" />
+      <workItem from="1775191013875" duration="1353000" />
     </task>
     <task id="LOCAL-00001" summary="mini refactoring">
       <option name="closed" value="true" />
