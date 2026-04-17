@@ -4,24 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcf5c684-3fae-4ba0-b495-945d264be640" name="Changes" comment="working tests">
+    <list default="true" id="dcf5c684-3fae-4ba0-b495-945d264be640" name="Changes" comment="100% test coverage">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab-2.docx" beforeDir="false" afterPath="$PROJECT_DIR$/lab-2.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/main/java/functions/math/FunctionSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/main/java/functions/math/FunctionSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/main/java/functions/math/logarithmic/LogN.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/main/java/functions/math/logarithmic/LogN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/FunctionSystemIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/FunctionSystemIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/FunctionSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/FunctionSystemTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/LnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/LnTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/Log10Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/Log10Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/Log2Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/Log2Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/Log3Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/Log3Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/Log5Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/logarithmic/Log5Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/CosTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/CosTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/CscTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/CscTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/SecTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/SecTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/SinTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/SinTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/TanTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/module/trigonometric/TanTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +120,7 @@
       <workItem from="1775838279216" duration="11000" />
       <workItem from="1775838763540" duration="34000" />
       <workItem from="1776262723809" duration="2943000" />
-      <workItem from="1776375268515" duration="13993000" />
+      <workItem from="1776375268515" duration="16985000" />
     </task>
     <task id="LOCAL-00001" summary="mini refactoring">
       <option name="closed" value="true" />
@@ -170,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776386662524</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="100% test coverage">
+      <option name="closed" value="true" />
+      <created>1776390294609</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1776390294609</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,7 +172,8 @@
     <MESSAGE value="mini refactoring" />
     <MESSAGE value="something work" />
     <MESSAGE value="working tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="working tests" />
+    <MESSAGE value="100% test coverage" />
+    <option name="LAST_COMMIT_MESSAGE" value="100% test coverage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
