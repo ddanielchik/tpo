@@ -33,4 +33,52 @@ class SinTest {
     void shouldThrowForInvalidN() {
         assertThrows(IllegalArgumentException.class, () -> sin.calc(1.0, 0));
     }
+
+    @Test
+    void shouldNormalizeLargePositiveArgument() {
+        Sin sin = new Sin();
+        assertEquals(Math.sin(10.0), sin.calc(10.0), 1e-9);
+    }
+
+    @Test
+    void shouldNormalizeArgumentGreaterThanPi() {
+        Sin sin = new Sin();
+        assertEquals(Math.sin(4.0), sin.calc(4.0), 1e-9);
+    }
+
+    @Test
+    void shouldReturnNaNForPositiveInfinity() {
+        assertTrue(Double.isNaN(sin.calc(Double.POSITIVE_INFINITY)));
+    }
+
+    @Test
+    void shouldReturnNaNForNegativeInfinity() {
+        assertTrue(Double.isNaN(sin.calc(Double.NEGATIVE_INFINITY)));
+    }
+
+    @Test
+    void shouldThrowForZeroN() {
+        assertThrows(IllegalArgumentException.class, () -> sin.calc(1.0, 0));
+    }
+
+    @Test
+    void shouldThrowForNegativeN() {
+        assertThrows(IllegalArgumentException.class, () -> sin.calc(1.0, -5));
+    }
+
+    @Test
+    void shouldReturnZeroForNegativeZero() {
+        assertEquals(-0.0, sin.calc(-0.0), 1e-9);
+    }
+
+    @Test
+    void shouldCalculateForNegativeArgument() {
+        assertEquals(Math.sin(-4.0), sin.calc(-4.0), 1e-9);
+    }
+
+    @Test
+    void shouldStopBecauseOfIterationLimit() {
+        double result = sin.calc(1.0, 1);
+        assertFalse(Double.isNaN(result));
+    }
 }

@@ -24,4 +24,39 @@ class SecTest {
     void shouldReturnNaNAtUndefinedPoint() {
         assertTrue(Double.isNaN(sec.calc(Math.PI / 2)));
     }
+
+    @Test
+    void shouldReturnNaNForNaN() {
+        Sec sec = new Sec(new Cos(new Sin()));
+        assertTrue(Double.isNaN(sec.calc(Double.NaN)));
+    }
+
+    @Test
+    void shouldReturnNaNForPositiveInfinity() {
+        Sec sec = new Sec(new Cos(new Sin()));
+        assertTrue(Double.isNaN(sec.calc(Double.POSITIVE_INFINITY)));
+    }
+
+    @Test
+    void shouldReturnNaNForNegativeInfinity() {
+        assertTrue(Double.isNaN(sec.calc(Double.NEGATIVE_INFINITY)));
+    }
+
+    @Test
+    void shouldReturnNaNWhenCosReturnsNaN() {
+        Cos badCos = new Cos(new Sin()) {
+            @Override
+            public double calc(double x) {
+                return Double.NaN;
+            }
+        };
+
+        Sec sec = new Sec(badCos);
+        assertTrue(Double.isNaN(sec.calc(1.0)));
+    }
+
+    @Test
+    void shouldReturnNaNAtPiHalf() {
+        assertTrue(Double.isNaN(sec.calc(Math.PI / 2)));
+    }
 }

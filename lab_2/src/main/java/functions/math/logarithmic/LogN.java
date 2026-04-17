@@ -4,7 +4,6 @@ import functions.math.MathFunc;
 
 public class LogN implements MathFunc {
     private final Ln ln;
-    private final double base;
     private final double lnBase;
 
     public LogN(Ln ln, double base) {
@@ -17,7 +16,6 @@ public class LogN implements MathFunc {
         }
 
         this.ln = ln;
-        this.base = base;
         this.lnBase = ln.calc(base);
 
         double eps = 1e-12;
@@ -38,9 +36,5 @@ public class LogN implements MathFunc {
         }
 
         return lnX / lnBase;
-    }
-
-    public double getBase() {
-        return base;
     }
 }

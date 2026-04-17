@@ -40,6 +40,30 @@ public class FunctionSystem implements MathFunc {
         this.log10 = new Log10(ln);
     }
 
+    public FunctionSystem(
+            Sin sin,
+            Cos cos,
+            Tan tan,
+            Csc csc,
+            Sec sec,
+            Ln ln,
+            Log2 log2,
+            Log3 log3,
+            Log5 log5,
+            Log10 log10
+    ) {
+        this.sin = sin;
+        this.cos = cos;
+        this.tan = tan;
+        this.csc = csc;
+        this.sec = sec;
+        this.ln = ln;
+        this.log2 = log2;
+        this.log3 = log3;
+        this.log5 = log5;
+        this.log10 = log10;
+    }
+
     @Override
     public double calc(double x) {
         if (Double.isNaN(x) || Double.isInfinite(x)) {
