@@ -3,21 +3,66 @@ package functions.math.integration;
 import functions.math.trigonometric.Cos;
 import functions.math.trigonometric.Sin;
 import functions.math.trigonometric.Tan;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
 class TanIntegrationTest {
     private static final double EPS = 1e-9;
 
-    private final Sin sin = new Sin();
-    private final Cos cos = new Cos(sin);
-    private final Tan tan = new Tan(sin, cos);
+    @Test
+    void shouldCalculateTanUsingMocks() {
+        Sin sin = mock(Sin.class);
+        Cos cos = mock(Cos.class);
 
-    @ParameterizedTest(name = "tan integration ({0}) = {1}")
-    @CsvFileSource(resources = "/integration/tan.csv", numLinesToSkip = 1, delimiter = ';')
-    void shouldCalculateTanWithSinAndCos(double x, double expected) {
-        assertEquals(expected, tan.calc(x), EPS);
+        when(sin.calc(1.0)).thenReturn(2.0);
+        when(cos.calc(1.0)).thenReturn(4.0);
+
+        Tan tan = new Tan(sin, cos);
+
+        assertEquals(0.5, tan.calc(1.0), EPS);
+        verify(sin).calc(1.0);
+        verify(cos).calc(1.0);
+    }
+
+    @Test
+    void shouldReturnNaNWhenCosIsTooSmall() {
+        Sin sin = mock(Sin.class);
+        Cos cos = mock(Cos.class);
+
+        when(sin.calc(1.0)).thenReturn(2.0);
+        when(cos.calc(1.0)).thenReturn(1e-12);
+
+        Tan tan = new Tan(sin, cos);
+
+        assertTrue(Double.isNaN(tan.calc(1.0)));
+    }
+
+    @Test
+    void shouldReturnNaNWhenSinReturnsNaN() {
+        Sin sin = mock(Sin.class);
+        Cos cos = mock(Cos.class);
+
+        when(sin.calc(1.0)).thenReturn(Double.NaN);
+        when(cos.calc(1.0)).thenReturn(2.0);
+
+        Tan tan = new Tan(sin, cos);
+
+        assertTrue(Double.isNaN(tan.calc(1.0)));
+    }
+
+    @Test
+    void shouldReturnNaNWhenCosReturnsNaN() {
+        Sin sin = mock(Sin.class);
+        Cos cos = mock(Cos.class);
+
+        when(sin.calc(1.0)).thenReturn(2.0);
+        when(cos.calc(1.0)).thenReturn(Double.NaN);
+
+        Tan tan = new Tan(sin, cos);
+
+        assertTrue(Double.isNaN(tan.calc(1.0)));
     }
 }

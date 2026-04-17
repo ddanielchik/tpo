@@ -1,39 +1,46 @@
 package functions.math.integration;
 
 import functions.math.logarithmic.Ln;
-import functions.math.logarithmic.Log10;
-import functions.math.logarithmic.Log2;
-import functions.math.logarithmic.Log3;
-import functions.math.logarithmic.Log5;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
+import functions.math.logarithmic.LogN;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class LogNIntegrationTest {
     private static final double EPS = 1e-9;
 
-    private final Ln ln = new Ln();
-    private final Log2 log2 = new Log2(ln);
-    private final Log3 log3 = new Log3(ln);
-    private final Log5 log5 = new Log5(ln);
-    private final Log10 log10 = new Log10(ln);
+    @Test
+    void shouldCalculateLogNUsingLnMock() {
+        Ln ln = mock(Ln.class);
 
-    @ParameterizedTest(name = "log integration ({0})")
-    @CsvFileSource(resources = "/integration/logn.csv", numLinesToSkip = 1, delimiter = ';')
-    void shouldCalculateLogsWithLn(
-            double x,
-            double expectedLog2,
-            double expectedLog3,
-            double expectedLog5,
-            double expectedLog10
-    ) {
-        assertAll(
-                () -> assertEquals(expectedLog2, log2.calc(x), EPS),
-                () -> assertEquals(expectedLog3, log3.calc(x), EPS),
-                () -> assertEquals(expectedLog5, log5.calc(x), EPS),
-                () -> assertEquals(expectedLog10, log10.calc(x), EPS)
-        );
+        when(ln.calc(2.0)).thenReturn(0.6931471805599453); // ln(base)
+        when(ln.calc(8.0)).thenReturn(2.0794415416798357); // ln(x)
+
+        LogN logN = new LogN(ln, 2.0);
+
+        assertEquals(3.0, logN.calc(8.0), EPS);
+        verify(ln).calc(2.0);
+        verify(ln).calc(8.0);
+    }
+
+    @Test
+    void shouldReturnNaNWhenLnReturnsNaNForX() {
+        Ln ln = mock(Ln.class);
+
+        when(ln.calc(2.0)).thenReturn(0.6931471805599453);
+        when(ln.calc(8.0)).thenReturn(Double.NaN);
+
+        LogN logN = new LogN(ln, 2.0);
+
+        assertTrue(Double.isNaN(logN.calc(8.0)));
+    }
+
+    @Test
+    void shouldThrowWhenLnReturnsNaNForBase() {
+        Ln ln = mock(Ln.class);
+        when(ln.calc(2.0)).thenReturn(Double.NaN);
+
+        assertThrows(IllegalArgumentException.class, () -> new LogN(ln, 2.0));
     }
 }

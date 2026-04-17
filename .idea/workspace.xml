@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcf5c684-3fae-4ba0-b495-945d264be640" name="Changes" comment="100% test coverage">
+    <list default="true" id="dcf5c684-3fae-4ba0-b495-945d264be640" name="Changes" comment="100% otchet">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/CosIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/CosIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/CscIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/CscIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/FunctionSystemIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/FunctionSystemIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/LogNIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/LogNIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/SecIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/SecIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/TanIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/TanIntegrationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +127,7 @@
       <workItem from="1775838279216" duration="11000" />
       <workItem from="1775838763540" duration="34000" />
       <workItem from="1776262723809" duration="2943000" />
-      <workItem from="1776375268515" duration="16985000" />
+      <workItem from="1776375268515" duration="18327000" />
     </task>
     <task id="LOCAL-00001" summary="mini refactoring">
       <option name="closed" value="true" />
@@ -162,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776390294609</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="100% otchet">
+      <option name="closed" value="true" />
+      <created>1776407022724</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1776407022724</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,7 +188,8 @@
     <MESSAGE value="something work" />
     <MESSAGE value="working tests" />
     <MESSAGE value="100% test coverage" />
-    <option name="LAST_COMMIT_MESSAGE" value="100% test coverage" />
+    <MESSAGE value="100% otchet" />
+    <option name="LAST_COMMIT_MESSAGE" value="100% otchet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
