@@ -1,142 +1,66 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 public class BonusyPage extends Page {
 
-    private final By bookmakerFilter = By.xpath(
-            "//span[@data-qa='Tag' and contains(., 'Букмекерская контора')]"
-    );
+    private final String bonusTitle =
+            "//*[contains(normalize-space(.), 'Бонусы букмекерских контор')]";
 
-    private final By bookmakerSearchInput = By.xpath("//input[@type='text']");
+    private final String bonusCards =
+            "//*[contains(normalize-space(.), 'Забрать фрибет')]"
+                    + " | //*[contains(normalize-space(.), 'PARI')]"
+                    + " | //*[contains(normalize-space(.), 'Фонбет')]"
+                    + " | //*[contains(normalize-space(.), 'BetBoom')]"
+                    + " | //*[contains(normalize-space(.), 'WINLINE')]";
+
+    private final String frebetInfo =
+            "//*[contains(normalize-space(.), 'Фрибет')]";
 
     public BonusyPage(WebDriver driver) {
         super(driver);
     }
 
-    @Override
     public void open() {
-        String url = baseUrl + "/bonusy/";
-        driver.get(url);
-        wait.until(driver -> isOpened());
+        openPath("/bonusy/");
     }
 
-    @Override
-    public boolean isOpened() {
-        return getCurrentUrl().contains("/bonusy/")
-                || pageContainsText("Бонусы букмекерских контор");
+    public boolean hasBonusesPageContent() {
+        return hasBonusesPageHeader()
+                && hasBonusOffers();
     }
 
-    public boolean hasBonusCards() {
-        String bonusCardsXpath = "//a[contains(@href, '/bonusy/')]";
-        return countByXpath(bonusCardsXpath) > 0;
+    public boolean hasBonusesPageHeader() {
+        return isElementPresent(bonusTitle);
     }
 
-    public void openBookmakerFilter() {
-        WebElement filter = wait.until(
-                ExpectedConditions.presenceOfElementLocated(bookmakerFilter)
-        );
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});",
-                filter
-        );
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();",
-                filter
-        );
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(bookmakerSearchInput));
+    public boolean hasBonusOffers() {
+        return isElementPresent(bonusCards)
+                || isElementPresent(frebetInfo)
+                || isTextPresent("Pari")
+                || isTextPresent("Fonbet")
+                || isTextPresent("BetBoom");
     }
 
-    public boolean isBookmakerFilterOpened() {
-        return !driver.findElements(bookmakerSearchInput).isEmpty()
-                && pageContainsText("Поиск по букмекерам");
+    public void openFirstBonusOffer() {
+        List<WebElement> offers = findElementsByXpath(
+                "//*[contains(normalize-space(.), 'Получить фрибет')]"
+                        + " | //a[contains(@href, '/bukmekery/bonus')]"
+                        + " | //a[contains(normalize-space(.), 'Получить')]"
+        );
+
+        if (offers.isEmpty()) {
+            throw new IllegalStateException("Не найдены бонусные предложения");
+        }
+
+        scrollTo(offers.get(0));
+        offers.get(0).click();
     }
 
-    public void searchBookmaker(String text) {
-        openBookmakerFilter();
-        searchBookmakerWithoutOpeningFilter(text);
-    }
-
-    public void searchBookmakerWithoutOpeningFilter(String text) {
-        WebElement input = wait.until(
-                ExpectedConditions.presenceOfElementLocated(bookmakerSearchInput)
-        );
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});",
-                input
-        );
-
-        input.click();
-
-        new Actions(driver)
-                .keyDown(Keys.COMMAND)
-                .sendKeys("a")
-                .keyUp(Keys.COMMAND)
-                .sendKeys(Keys.BACK_SPACE)
-                .sendKeys(text)
-                .perform();
-
-        wait.until(driver ->
-                text.equals(input.getAttribute("value"))
-        );
-    }
-
-    public void selectBookmaker(String bookmakerName) {
-        searchBookmaker(bookmakerName);
-
-        WebElement bookmaker = wait.until(
-                ExpectedConditions.presenceOfElementLocated(
-                        By.xpath("//*[contains(text(),'" + bookmakerName + "')]")
-                )
-        );
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();",
-                bookmaker
-        );
-
-        wait.until(driver -> isOpened());
-    }
-
-    public boolean isBookmakerFilterApplied() {
-        return hasBonusCards();
-    }
-
-    public void selectNewPlayersFilter() {
-        clickBonusFilterByText("Новым игрокам");
-    }
-
-    public void selectActivePlayersFilter() {
-        clickBonusFilterByText("Действующим игрокам");
-    }
-
-    private void clickBonusFilterByText(String text) {
-        By filter = By.xpath(
-                "//span[@data-qa='Tag' and contains(., '" + text + "')]"
-        );
-
-        WebElement element = wait.until(
-                ExpectedConditions.presenceOfElementLocated(filter)
-        );
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});",
-                element
-        );
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();",
-                element
-        );
+    public boolean hasBonusConditions() {
+        return isElementPresent(frebetInfo);
     }
 }

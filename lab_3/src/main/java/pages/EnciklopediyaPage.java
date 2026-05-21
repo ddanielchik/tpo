@@ -1,104 +1,92 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 public class EnciklopediyaPage extends Page {
 
-    private final By searchInput = By.xpath(
-            "//div[@data-qa='TextInput']//input[@type='text']"
-    );
+    private final String knowledgeBaseTitle =
+                    "//*[contains(normalize-space(.), 'База знаний')]"
+                    + " | //*[contains(normalize-space(.), 'Школа беттинга')]";
 
-    private final By searchButton = By.xpath(
-            "//div[contains(@class, 'search')]//button[@data-qa='Button']"
-    );
+    private final String articleLinks =
+            "//a[contains(@href, '/enciklopediya/') and not(@href='/enciklopediya/')]";
+
+    private final String knowledgeBaseInfo =
+            "//*[contains(normalize-space(.), 'ставк')]"
+                    + " | //*[contains(normalize-space(.), 'беттинг')]"
+                    + " | //*[contains(normalize-space(.), 'букмекер')]"
+                    + " | //*[contains(normalize-space(.), 'Школа беттинга')]";
+
+    private final String articleContentInfo =
+            "//*[contains(normalize-space(.), 'ставк')]"
+                    + " | //*[contains(normalize-space(.), 'беттинг')]"
+                    + " | //*[contains(normalize-space(.), 'букмекер')]"
+                    + " | //*[contains(normalize-space(.), 'бонус')]";
+
+    private final String relatedMaterialsInfo =
+            "//*[contains(normalize-space(.), 'Читайте также')]"
+                    + " | //*[contains(normalize-space(.), 'Похожие материалы')]"
+                    + " | //*[contains(normalize-space(.), 'Школа беттинга')]";
 
     public EnciklopediyaPage(WebDriver driver) {
         super(driver);
     }
 
-    @Override
     public void open() {
-        String url = baseUrl + "/enciklopediya/";
-        driver.get(url);
-
-        wait.until(driver -> isOpened());
+        openPath("/enciklopediya/");
     }
 
-    @Override
-    public boolean isOpened() {
-        return getCurrentUrl().contains("/journal/")
-                || pageContainsText("База знаний")
-                || pageContainsText("Что вы хотите найти");
+    public boolean hasKnowledgeBaseContent() {
+        return hasKnowledgeBaseHeader()
+                && hasArticlesOrCategories();
     }
 
-    public void search(String text) {
-        WebElement input = wait.until(
-                ExpectedConditions.presenceOfElementLocated(searchInput)
-        );
+    public boolean hasKnowledgeBaseHeader() {
+        return isElementPresent(knowledgeBaseTitle)
+                || isElementPresent(knowledgeBaseInfo);
+    }
 
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});",
-                input
-        );
+    public boolean hasArticlesOrCategories() {
+        return isElementPresent(articleLinks)
+                || isElementPresent(knowledgeBaseInfo)
+                || isTextPresent("Бонус");
+    }
 
-        input.click();
+    public void openFirstEducationalArticle() {
+        List<WebElement> articles = findElementsByXpath(articleLinks);
 
-        new Actions(driver)
-                .keyDown(Keys.COMMAND)
-                .sendKeys("a")
-                .keyUp(Keys.COMMAND)
-                .sendKeys(Keys.BACK_SPACE)
-                .sendKeys(text)
-                .perform();
-
-        String value = input.getAttribute("value");
-
-        if (!text.equals(value)) {
-            ((JavascriptExecutor) driver).executeScript("""
-                    arguments[0].focus();
-                    arguments[0].value = arguments[1];
-                    arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
-                    arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
-                    """, input, text);
+        if (articles.isEmpty()) {
+            throw new IllegalStateException("Не найдены обучающие статьи в базе знаний");
         }
 
-        wait.until(driver ->
-                text.equals(input.getAttribute("value"))
-        );
-
-        WebElement button = wait.until(
-                ExpectedConditions.presenceOfElementLocated(searchButton)
-        );
-
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].click();",
-                button
-        );
-
-        wait.until(driver ->
-                driver.getCurrentUrl().contains("search")
-                        || driver.findElement(By.tagName("body"))
-                        .getText()
-                        .toLowerCase()
-                        .contains(text.toLowerCase())
-        );
+        scrollTo(articles.get(0));
+        articles.get(0).click();
     }
 
-    public String getSearchInputValue() {
-        return driver.findElement(searchInput)
-                .getAttribute("value");
+    public void openKnownBonusArticle() {
+        openPath("/enciklopediya/shkola-bettinga/bonus-v-stavkah-na-sport/");
     }
 
-    public boolean hasSearchResults(String text) {
-        return driver.findElement(By.tagName("body"))
-                .getText()
-                .toLowerCase()
-                .contains(text.toLowerCase());
+    public boolean hasArticleMainText() {
+        return isElementPresent(articleContentInfo);
+    }
+
+    public boolean hasRelatedMaterials() {
+        return isElementPresent(articleLinks)
+                || isElementPresent(relatedMaterialsInfo);
+    }
+
+    public void openFirstRelatedMaterial() {
+        List<WebElement> articles = findElementsByXpath(articleLinks);
+
+        if (articles.isEmpty()) {
+            throw new IllegalStateException("Не найдены связанные материалы базы знаний");
+        }
+
+        scrollTo(articles.get(0));
+        articles.get(0).click();
     }
 }

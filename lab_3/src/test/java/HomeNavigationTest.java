@@ -1,62 +1,74 @@
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
 import pages.*;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class HomeNavigationTest extends BaseTest {
+public class HomeNavigationTest {
 
-    @Test
-    public void userCanOpenHomePage() {
-        HomePage page = new HomePage(driver);
+    private Utils utils;
+    private WebDriver driver;
 
-        page.open();
+    private HomePage homePage;
+    private BukmekeryPage bukmekeryPage;
+    private BonusyPage bonusyPage;
+    private StatPage statPage;
+    private PrognozyPage prognozyPage;
+    private MagPage magPage;
+    private EnciklopediyaPage enciklopediyaPage;
 
-        assertTrue(page.isOpened());
-        assertTrue(page.hasMainNavigation());
-        assertTrue(page.hasMainContent());
-    }
+    @BeforeEach
+    public void setUp() {
+        utils = new Utils();
+        utils.setupDriver();
 
-    @Test
-    public void userCanNavigateFromHomePageToBonuses() {
-        HomePage page = new HomePage(driver);
+        driver = utils.getDriver();
 
-        page.open();
-        page.openBonusy();
-
-        assertTrue(driver.getCurrentUrl().contains("/bonusy/"));
+        homePage = new HomePage(driver);
+        bukmekeryPage = new BukmekeryPage(driver);
+        bonusyPage = new BonusyPage(driver);
+        statPage = new StatPage(driver);
+        prognozyPage = new PrognozyPage(driver);
+        magPage = new MagPage(driver);
+        enciklopediyaPage = new EnciklopediyaPage(driver);
     }
 
     @Test
     public void userCanNavigateBetweenMainSections() {
-        HomePage homePage = new HomePage(driver);
-        BonusyPage bonusyPage = new BonusyPage(driver);
-        BukmekeryPage bukmekeryPage = new BukmekeryPage(driver);
-        PrognozyPage prognozyPage = new PrognozyPage(driver);
-        MagPage magPage = new MagPage(driver);
-        EnciklopediyaPage enciklopediyaPage = new EnciklopediyaPage(driver);
-        StatPage statPage = new StatPage(driver);
-
         homePage.open();
 
-        assertTrue(homePage.isOpened());
-        assertTrue(homePage.hasMainNavigation());
+        assertTrue(homePage.hasHeaderNavigation(), "На главной странице не отображается навигационное меню");
 
-        homePage.openBonusy();
-        assertTrue(bonusyPage.isOpened());
+        homePage.openBookmakers();
+        assertTrue(bukmekeryPage.hasBookmakersPageContent(), "После перехода не отображается раздел букмекеров");
 
-        bonusyPage.openBukmekeryPage();
-        assertTrue(bukmekeryPage.isOpened());
+        homePage.open();
+        homePage.openBonuses();
+        assertTrue(bonusyPage.hasBonusesPageContent(), "После перехода не отображается раздел бонусов");
 
-        bukmekeryPage.openPrognozyPage();
-        assertTrue(prognozyPage.isOpened());
+        homePage.open();
+        homePage.openMatchCenter();
+        assertTrue(statPage.hasMatchCenterContent(), "После перехода не отображается матч-центр");
 
-        prognozyPage.openMagPage();
-        assertTrue(magPage.isOpened());
+        homePage.open();
+        homePage.openForecasts();
+        assertTrue(prognozyPage.hasForecastsPageContent(), "После перехода не отображается раздел прогнозов");
 
-        magPage.openEnciklopediyaPage();
-        assertTrue(enciklopediyaPage.isOpened());
+        homePage.open();
+        homePage.openMagazine();
+        assertTrue(magPage.hasMagazinePageContent(), "После перехода не отображается журнал");
 
-        enciklopediyaPage.openStatFootballPage();
-        assertTrue(statPage.isOpened());
+        homePage.open();
+        homePage.openKnowledgeBase();
+        assertTrue(enciklopediyaPage.hasKnowledgeBaseContent(), "После перехода не отображается база знаний");
+    }
+
+    @AfterEach
+    public void tearDown() {
+        if (utils != null) {
+            utils.closeDriver();
+        }
     }
 }

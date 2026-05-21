@@ -7,67 +7,79 @@ import java.util.List;
 
 public class MagPage extends Page {
 
-    private final String articleLinksXpath =
-            "//a[contains(@href, '/mag/statji/')]";
+    private final String materialCards =
+            "//a[contains(@href, '/mag/novosti/') and not(@href='/mag/novosti/')]"
+                    + " | //a[contains(@href, '/mag/statji/') and not(@href='/mag/statji/')]";
+
+    private final String magazineContent =
+            "//*[contains(normalize-space(.), 'Новости')]"
+                    + " | //*[contains(normalize-space(.), 'Статьи')]"
+                    + " | //*[contains(normalize-space(.), 'Новость')]";
+
+    private final String footballNews =
+            "//a[contains(@href, '/mag/novosti/football/') or contains(normalize-space(.), 'Футбол')]";
+
+    private final String hockeyNews =
+            "//a[contains(@href, '/mag/novosti/hockey/') or contains(normalize-space(.), 'Хоккей')]";
+
+    private final String materialContent =
+            "//*[contains(normalize-space(.), 'спорт')]"
+                    + " | //*[contains(normalize-space(.), 'матч')]"
+                    + " | //*[contains(normalize-space(.), 'Футбол')]"
+                    + " | //*[contains(normalize-space(.), 'Хоккей')]"
+                    + " | //*[contains(normalize-space(.), 'Новость')]"
+                    + " | //*[contains(normalize-space(.), 'Статья')]";
 
     public MagPage(WebDriver driver) {
         super(driver);
     }
 
-    @Override
     public void open() {
-        String url = baseUrl + "/mag/";
-        driver.get(url);
-        wait.until(driver -> isOpened());
+        openPath("/mag/");
     }
 
-    @Override
-    public boolean isOpened() {
-        return getCurrentUrl().contains("/mag/")
-                || pageContainsText("журнал");
+    public boolean hasMagazinePageContent() {
+        return hasMaterials();
     }
 
-    public boolean hasNewsBlock() {
-        String newsBlockXpath = "//*[contains(normalize-space(), 'Новость дня')]";
-        return isElementPresent(newsBlockXpath);
+    public boolean hasMaterials() {
+        return isElementPresent(materialCards)
+                || isElementPresent(magazineContent);
     }
 
-    public boolean hasArticleCards() {
-        return getArticleCardsCount() > 0;
+    public boolean hasFootballNewsLink() {
+        return isElementPresent(footballNews);
     }
 
-    public boolean hasArticlesBlock() {
-        return hasArticleCards();
+    public boolean hasHockeyNewsLink() {
+        return isElementPresent(hockeyNews);
     }
 
-    public boolean hasArticleOrNewsLinks() {
-        return hasArticleCards() || hasNewsBlock();
+    public void openFirstMaterial() {
+        List<WebElement> materials = findElementsByXpath(materialCards);
+
+        if (materials.isEmpty()) {
+            throw new IllegalStateException("Не найдены статьи или новости журнала");
+        }
+
+        scrollTo(materials.get(0));
+        materials.get(0).click();
     }
 
-    public int getArticleCardsCount() {
-        return countByXpath(articleLinksXpath);
+    public boolean hasMaterialContent() {
+        return isElementPresent("//h1")
+                && isElementPresent(materialContent);
     }
 
-    public void openFirstArticle() {
-        List<WebElement> articles = findAllByXpath(articleLinksXpath);
-
-        WebElement firstArticle = articles.get(0);
-
-        String href = firstArticle.getAttribute("href");
-
-        driver.get(href);
-
-        wait.until(driver ->
-                getCurrentUrl().contains("/mag/statji/")
-        );
+    public void openFootballNews() {
+        openPath("/mag/novosti/football/");
     }
 
-    public void openFirstArticleOrNews() {
-        openFirstArticle();
+    public void openHockeyNews() {
+        openPath("/mag/novosti/hockey/");
     }
 
-    public boolean hasOpenedMaterial() {
-        String articleTitleXpath = "//h1 | //h2 | //h3 | //h4";
-        return isElementPresent(articleTitleXpath);
+    public boolean hasThematicMaterials() {
+        return hasMaterials();
     }
 }

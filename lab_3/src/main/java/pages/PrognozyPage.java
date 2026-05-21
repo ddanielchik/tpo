@@ -1,64 +1,101 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class PrognozyPage extends Page {
 
-    private final String forecastCardsXpath =
-            "//a[contains(@href, '/prognozy/') and .//span[@data-atr='forecast']]";
+    private final String forecastsTitle =
+            "//*[contains(normalize-space(.), 'Прогнозы на спорт')]";
+
+    private final String forecastCards =
+            "//a[contains(@href, '/prognozy/') and not(@href='/prognozy/')]";
+
+    private final String footballForecasts =
+            "//a[contains(@href, '/prognozy/football/') or contains(normalize-space(.), 'Футбол')]";
+
+    private final String tennisForecasts =
+            "//a[contains(@href, '/prognozy/tennis/') or contains(normalize-space(.), 'Теннис')]";
+
+    private final String hockeyForecasts =
+            "//a[contains(@href, '/prognozy/hockey/') or contains(normalize-space(.), 'Хоккей')]";
+
+    private final String forecastTextInfo =
+            "//*[contains(normalize-space(.), 'Прогноз')]";
 
     public PrognozyPage(WebDriver driver) {
         super(driver);
     }
 
-    @Override
     public void open() {
-        String url = baseUrl + "/prognozy/";
-        driver.get(url);
-        wait.until(driver -> isOpened());
+        openPath("/prognozy/");
     }
 
-    @Override
-    public boolean isOpened() {
-        return getCurrentUrl().contains("/prognozy/");
+    public boolean hasForecastsPageContent() {
+        return hasForecastsPageHeader()
+                && hasForecastCards();
     }
 
-    public boolean hasHeader() {
-        String pageHeaderXpath = "//*[contains(normalize-space(), 'Прогноз')]";
-        return isElementPresent(pageHeaderXpath);
+    public boolean hasForecastsPageHeader() {
+        return isElementPresent(forecastsTitle);
     }
 
     public boolean hasForecastCards() {
-        return getForecastCardsCount() > 0;
+        return isElementPresent(forecastCards)
+                || isElementPresent(forecastTextInfo);
     }
 
-    public int getForecastCardsCount() {
-        return countByXpath(forecastCardsXpath);
+    public boolean hasFootballForecastsLink() {
+        return isElementPresent(footballForecasts);
     }
 
-    public boolean hasSportFilter() {
-        String footballFilterXpath = "//*[contains(normalize-space(), 'Футбол')]";
-        return isElementPresent(footballFilterXpath);
+    public boolean hasTennisForecastsLink() {
+        return isElementPresent(tennisForecasts);
     }
 
-    public void selectSportFilter(String sport) {
-        clickByXpath("//*[contains(normalize-space(), '" + sport + "')]");
-        wait.until(driver -> isOpened());
+    public boolean hasHockeyForecastsLink() {
+        return isElementPresent(hockeyForecasts);
+    }
+
+    public void openFootballForecasts() {
+        if (!hasFootballForecastsLink()) {
+            throw new IllegalStateException("Ссылка на футбольные прогнозы не найдена");
+        }
+
+        jsClickByXpath(footballForecasts);
+    }
+
+    public void openTennisForecasts() {
+        if (!hasTennisForecastsLink()) {
+            throw new IllegalStateException("Ссылка на теннисные прогнозы не найдена");
+        }
+
+        jsClickByXpath(tennisForecasts);
+    }
+
+    public void openHockeyForecasts() {
+        if (!hasHockeyForecastsLink()) {
+            throw new IllegalStateException("Ссылка на хоккейные прогнозы не найдена");
+        }
+
+        jsClickByXpath(hockeyForecasts);
+    }
+
+    public boolean hasSportForecasts(String sportName) {
+        return isTextPresent(sportName)
+                && hasForecastCards();
     }
 
     public void openFirstForecast() {
-        String oldUrl = getCurrentUrl();
+        List<WebElement> forecasts = findElementsByXpath(forecastCards);
 
-        jsClickByXpath(forecastCardsXpath);
+        if (forecasts.isEmpty()) {
+            throw new IllegalStateException("Не найдены карточки прогнозов");
+        }
 
-        wait.until(driver -> !getCurrentUrl().equals(oldUrl)
-                || pageContainsText("Сергей Шевченко")
-                || pageContainsText("Подробнее"));
-    }
-
-    public boolean hasForecastMaterialTitle() {
-        String materialTitleXpath = "//h1 | //h2 | //h3";
-        return isElementPresent(materialTitleXpath)
-                || pageContainsText("матч");
+        scrollTo(forecasts.get(0));
+        forecasts.get(0).click();
     }
 }
