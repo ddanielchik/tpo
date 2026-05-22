@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -8,22 +9,35 @@ import java.util.List;
 public class PrognozyPage extends Page {
 
     private final String forecastsTitle =
-            "//*[contains(normalize-space(.), 'Прогнозы на спорт')]";
+            "//h1[contains(normalize-space(.), 'Прогнозы на спорт')]"
+                    + " | //*[contains(normalize-space(.), 'Прогнозы на спорт')]";
+
+    private final String footballCategory =
+            "//a[contains(@href, '/prognozy/football/') "
+                    + "and contains(normalize-space(.), 'Футбол')]";
+
+    private final String tennisCategory =
+            "//a[contains(@href, '/prognozy/tennis/') "
+                    + "and contains(normalize-space(.), 'Теннис')]";
+
+    private final String hockeyCategory =
+            "//a[contains(@href, '/prognozy/hockey/') "
+                    + "and contains(normalize-space(.), 'Хоккей')]";
 
     private final String forecastCards =
-            "//a[contains(@href, '/prognozy/') and not(@href='/prognozy/')]";
+            "//a[contains(@href, '/prognozy/') "
+                    + "and not(@href='/prognozy/') "
+                    + "and not(@href='/prognozy/football/') "
+                    + "and not(@href='/prognozy/tennis/') "
+                    + "and not(@href='/prognozy/hockey/') "
+                    + "and not(contains(@href, '/tag/'))]";
 
-    private final String footballForecasts =
-            "//a[contains(@href, '/prognozy/football/') or contains(normalize-space(.), 'Футбол')]";
-
-    private final String tennisForecasts =
-            "//a[contains(@href, '/prognozy/tennis/') or contains(normalize-space(.), 'Теннис')]";
-
-    private final String hockeyForecasts =
-            "//a[contains(@href, '/prognozy/hockey/') or contains(normalize-space(.), 'Хоккей')]";
-
-    private final String forecastTextInfo =
-            "//*[contains(normalize-space(.), 'Прогноз')]";
+    private final String forecastPageInfo =
+            "//*[contains(normalize-space(.), 'Прогноз')]"
+                    + " | //*[contains(normalize-space(.), 'ставк')]"
+                    + " | //*[contains(normalize-space(.), 'коэффициент')]"
+                    + " | //*[contains(normalize-space(.), 'матч')]"
+                    + " | //*[contains(normalize-space(.), 'команд')]";
 
     public PrognozyPage(WebDriver driver) {
         super(driver);
@@ -43,49 +57,64 @@ public class PrognozyPage extends Page {
     }
 
     public boolean hasForecastCards() {
-        return isElementPresent(forecastCards)
-                || isElementPresent(forecastTextInfo);
+        return !findElementsByXpath(forecastCards).isEmpty()
+                || isTextPresent("Прогноз");
     }
 
-    public boolean hasFootballForecastsLink() {
-        return isElementPresent(footballForecasts);
+    public boolean hasFootballCategory() {
+        return isElementPresent(footballCategory);
     }
 
-    public boolean hasTennisForecastsLink() {
-        return isElementPresent(tennisForecasts);
+    public boolean hasTennisCategory() {
+        return isElementPresent(tennisCategory);
     }
 
-    public boolean hasHockeyForecastsLink() {
-        return isElementPresent(hockeyForecasts);
+    public boolean hasHockeyCategory() {
+        return isElementPresent(hockeyCategory);
     }
 
     public void openFootballForecasts() {
-        if (!hasFootballForecastsLink()) {
-            throw new IllegalStateException("Ссылка на футбольные прогнозы не найдена");
-        }
-
-        jsClickByXpath(footballForecasts);
+        openSportCategory(
+                footballCategory,
+                "Категория футбольных прогнозов не найдена"
+        );
     }
 
     public void openTennisForecasts() {
-        if (!hasTennisForecastsLink()) {
-            throw new IllegalStateException("Ссылка на теннисные прогнозы не найдена");
-        }
-
-        jsClickByXpath(tennisForecasts);
+        openSportCategory(
+                tennisCategory,
+                "Категория теннисных прогнозов не найдена"
+        );
     }
 
     public void openHockeyForecasts() {
-        if (!hasHockeyForecastsLink()) {
-            throw new IllegalStateException("Ссылка на хоккейные прогнозы не найдена");
-        }
-
-        jsClickByXpath(hockeyForecasts);
+        openSportCategory(
+                hockeyCategory,
+                "Категория хоккейных прогнозов не найдена"
+        );
     }
 
     public boolean hasSportForecasts(String sportName) {
         return isTextPresent(sportName)
                 && hasForecastCards();
+    }
+
+    public boolean hasClickableForecasts() {
+        return !findElementsByXpath(forecastCards).isEmpty();
+    }
+
+    public int getVisibleForecastsCount() {
+        return findElementsByXpath(forecastCards).size();
+    }
+
+    public String getFirstForecastText() {
+        List<WebElement> forecasts = findElementsByXpath(forecastCards);
+
+        if (forecasts.isEmpty()) {
+            throw new IllegalStateException("Не найдены карточки прогнозов");
+        }
+
+        return forecasts.get(0).getText().trim();
     }
 
     public void openFirstForecast() {
@@ -95,7 +124,48 @@ public class PrognozyPage extends Page {
             throw new IllegalStateException("Не найдены карточки прогнозов");
         }
 
-        scrollTo(forecasts.get(0));
-        forecasts.get(0).click();
+        WebElement forecast = forecasts.get(0);
+
+        System.out.println("Открываем прогноз:");
+        System.out.println(forecast.getText());
+        System.out.println("href = " + forecast.getAttribute("href"));
+
+        scrollTo(forecast);
+        jsClick(forecast);
+    }
+
+    public boolean hasForecastPageContent() {
+        return hasForecastPageHeader()
+                && hasForecastMainInfo();
+    }
+
+    public boolean hasForecastPageHeader() {
+        return isElementPresent("//h1");
+    }
+
+    public boolean hasForecastMainInfo() {
+        return isElementPresent(forecastPageInfo);
+    }
+
+    public String getForecastPageTitle() {
+        return findByXpath("//h1").getText().trim();
+    }
+
+    private void openSportCategory(String categoryXpath, String errorMessage) {
+        if (!isElementPresent(categoryXpath)) {
+            throw new IllegalStateException(errorMessage);
+        }
+
+        WebElement category = findByXpath(categoryXpath);
+
+        scrollTo(category);
+        jsClick(category);
+    }
+
+    private void jsClick(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();",
+                element
+        );
     }
 }

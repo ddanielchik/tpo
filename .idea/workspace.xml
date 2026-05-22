@@ -4,15 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcf5c684-3fae-4ba0-b495-945d264be640" name="Changes" comment="100% otchet">
+    <list default="true" id="dcf5c684-3fae-4ba0-b495-945d264be640" name="Changes" comment="worked Navigation and BookmakersTest">
+      <change afterPath="$PROJECT_DIR$/lab_3/src/test/java/BonusesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab_3/src/test/java/MagazineTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab_3/src/test/java/MatchCenterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab_3/src/test/java/PrognozyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/CosIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/CosIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/CscIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/CscIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/FunctionSystemIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/FunctionSystemIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/LogNIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/LogNIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/SecIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/SecIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/TanIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_2/src/test/java/functions/math/integration/TanIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab-3.docx" beforeDir="false" afterPath="$PROJECT_DIR$/lab-3.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/main/java/pages/BonusyPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_3/src/main/java/pages/BonusyPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/main/java/pages/EnciklopediyaPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_3/src/main/java/pages/EnciklopediyaPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/main/java/pages/MagPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_3/src/main/java/pages/MagPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/main/java/pages/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_3/src/main/java/pages/Page.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/main/java/pages/PrognozyPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_3/src/main/java/pages/PrognozyPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/main/java/pages/StatPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_3/src/main/java/pages/StatPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/test/java/AdaptiveLayoutTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/test/java/BonusesFlowTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/test/java/EncyclopediaSearchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lab_3/src/test/java/EncyclopediaSearchTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/test/java/MagazineFlowTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/test/java/MatchCenterFlowTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_3/src/test/java/PrognozyFlowTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +43,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/io/github/bonigarcia/webdrivermanager/6.1.0/webdrivermanager-6.1.0-sources.jar!/io/github/bonigarcia/wdm/WebDriverManager.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -51,11 +67,44 @@
     "Application.Main.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.BPTreeTest.executor": "Run",
+    "JUnit.BonusesFlowTest.executor": "Run",
+    "JUnit.BonusesFlowTest.userCanOpenBonusesPage.executor": "Run",
+    "JUnit.BonusesFlowTest.userCanSelectBookmakerInBonuses.executor": "Run",
+    "JUnit.BonusesTest.executor": "Run",
+    "JUnit.BonusesTest.userCanFilterBookmakersAndChooseBestBonusOffer.executor": "Run",
+    "JUnit.BonusesTest.userCanViewAndChooseBestBonusOffer.executor": "Run",
+    "JUnit.BonusesTest.userCanViewSelectedBonusOfferConditions.executor": "Run",
+    "JUnit.BonusyUseCaseTest.executor": "Run",
+    "JUnit.BonusyUseCaseTest.uc02UserCanOpenBookmakerSearchInBonuses.executor": "Run",
+    "JUnit.BonusyUseCaseTest.uc03UserCanSearchBookmakerInBonuses.executor": "Run",
+    "JUnit.BonusyUseCaseTest.uc04UserCanSelectBookmakerInBonuses.executor": "Run",
+    "JUnit.BookmakersComparisonTest.executor": "Run",
+    "JUnit.BookmakersComparisonTest.userCanCompareBookmakersByRating.executor": "Run",
+    "JUnit.BookmakersComparisonTest.userCanOpenBestRatedBookmakerAndViewOlegReview.executor": "Run",
+    "JUnit.BookmakersComparisonTest.userCanOpenFonbetCardAndViewReview.executor": "Debug",
+    "JUnit.BookmakersComparisonTest.userCanOpenWinlineCardAndViewReviews.executor": "Run",
     "JUnit.CosIntegrationTest.executor": "Coverage",
     "JUnit.EjectionEventTest.executor": "Run",
+    "JUnit.EnciklopediyaPageTest.executor": "Run",
+    "JUnit.EncyclopediaSearchTest.executor": "Run",
+    "JUnit.HomeNavigationTest.executor": "Run",
+    "JUnit.HomeNavigationTest.userCanNavigateBetweenMainSections.executor": "Run",
+    "JUnit.HomePageTest.executor": "Run",
+    "JUnit.MagazineTest.executor": "Run",
+    "JUnit.MatchCenterFlowTest.executor": "Run",
+    "JUnit.MatchCenterFlowTest.userCanSelectDateInCalendar.executor": "Run",
+    "JUnit.MatchCenterFlowTest.userCanSelectDateInTennisCalendar.executor": "Run",
+    "JUnit.MatchCenterFlowTest.userCanSwitchTennisDays.executor": "Run",
+    "JUnit.MatchCenterTest.executor": "Run",
+    "JUnit.PrognozyTest.executor": "Run",
+    "JUnit.StatUseCaseTest.executor": "Run",
+    "JUnit.StatUseCaseTest.uc04UserCanSearchTennisMatchesByCalendarTest.executor": "Run",
+    "JUnit.StatUseCaseTest.uc04UserCanSelectDateInTennisCalendarTest.executor": "Run",
     "Maven. [test].executor": "Run",
     "Maven.lab_2 [clean].executor": "Run",
     "Maven.lab_2 [test].executor": "Run",
+    "Maven.lab_3 [clean].executor": "Run",
+    "Maven.lab_3 [test].executor": "Run",
     "Maven.untitled [clean,test].executor": "Run",
     "Maven.untitled [test-compile].executor": "Run",
     "Maven.untitled [test].executor": "Run",
@@ -64,15 +113,19 @@
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/r/itmo/third/6sem/tpo/lab_1/src/test/resourсes/task1",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "/Users/r/itmo/third/6sem/tpo/lab_2/src/main/java/m/Main.java",
+    "onboarding.tips.debug.path": "/Users/r/itmo/third/6sem/tpo/lab_3/src/main/java/m/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -103,9 +156,65 @@
       <command value="maven test" />
       <command value="mvn test-compile" />
       <command value="run" />
-      <command value="mvn clean test" />
       <command value="mvn test" />
+      <command value="mvn clean test" />
     </option>
+  </component>
+  <component name="RunManager" selected="JUnit.EncyclopediaSearchTest">
+    <configuration name="BonusesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab_3" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="BonusesTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EncyclopediaSearchTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab_3" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="EncyclopediaSearchTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MagazineTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab_3" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MagazineTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MatchCenterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab_3" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MatchCenterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PrognozyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab_3" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PrognozyTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.EncyclopediaSearchTest" />
+        <item itemvalue="JUnit.MagazineTest" />
+        <item itemvalue="JUnit.PrognozyTest" />
+        <item itemvalue="JUnit.MatchCenterTest" />
+        <item itemvalue="JUnit.BonusesTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -127,7 +236,14 @@
       <workItem from="1775838279216" duration="11000" />
       <workItem from="1775838763540" duration="34000" />
       <workItem from="1776262723809" duration="2943000" />
-      <workItem from="1776375268515" duration="18327000" />
+      <workItem from="1776375268515" duration="23483000" />
+      <workItem from="1776510522761" duration="5000" />
+      <workItem from="1777463048915" duration="136000" />
+      <workItem from="1777463198390" duration="81000" />
+      <workItem from="1777464357505" duration="625000" />
+      <workItem from="1778339456716" duration="1423000" />
+      <workItem from="1778683843093" duration="39603000" />
+      <workItem from="1779356185749" duration="21009000" />
     </task>
     <task id="LOCAL-00001" summary="mini refactoring">
       <option name="closed" value="true" />
@@ -177,7 +293,23 @@
       <option name="project" value="LOCAL" />
       <updated>1776407022724</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="correct integration test">
+      <option name="closed" value="true" />
+      <created>1776409050533</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1776409050534</updated>
+    </task>
+    <task id="LOCAL-00008" summary="worked Navigation and BookmakersTest">
+      <option name="closed" value="true" />
+      <created>1779406967650</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1779406967650</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,7 +321,9 @@
     <MESSAGE value="working tests" />
     <MESSAGE value="100% test coverage" />
     <MESSAGE value="100% otchet" />
-    <option name="LAST_COMMIT_MESSAGE" value="100% otchet" />
+    <MESSAGE value="correct integration test" />
+    <MESSAGE value="worked Navigation and BookmakersTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="worked Navigation and BookmakersTest" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -198,6 +332,11 @@
           <url>file://$PROJECT_DIR$/lab_2/src/main/java/test/Main.java</url>
           <line>13</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/lab_3/src/main/java/m/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

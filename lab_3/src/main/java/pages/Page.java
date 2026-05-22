@@ -1,7 +1,9 @@
 package pages;
 
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,11 +26,15 @@ public abstract class Page {
     }
 
     protected WebElement findByXpath(String xpath) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+        return wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))
+        );
     }
 
     protected WebElement findVisibleByXpath(String xpath) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))
+        );
     }
 
     protected List<WebElement> findElementsByXpath(String xpath) {
@@ -36,15 +42,23 @@ public abstract class Page {
     }
 
     protected void clickByXpath(String xpath) {
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        WebElement element = wait.until(
+                ExpectedConditions.elementToBeClickable(By.xpath(xpath))
+        );
+
         scrollTo(element);
         element.click();
     }
 
     protected void jsClickByXpath(String xpath) {
         WebElement element = findByXpath(xpath);
+
         scrollTo(element);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();",
+                element
+        );
     }
 
     protected void scrollTo(WebElement element) {
@@ -66,11 +80,15 @@ public abstract class Page {
     }
 
     protected void checkElementPresent(String xpath, String message) {
-        Assertions.assertTrue(isElementPresent(xpath), message);
+        if (!isElementPresent(xpath)) {
+            throw new IllegalStateException(message);
+        }
     }
 
     protected void checkTextPresent(String text, String message) {
-        Assertions.assertTrue(isTextPresent(text), message);
+        if (!isTextPresent(text)) {
+            throw new IllegalStateException(message);
+        }
     }
 
     protected void checkAnyElementPresent(String message, String... xpaths) {
@@ -80,7 +98,7 @@ public abstract class Page {
             }
         }
 
-        Assertions.fail(message);
+        throw new IllegalStateException(message);
     }
 
     protected String linkByText(String text) {

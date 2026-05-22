@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -8,51 +9,45 @@ import java.util.List;
 public class StatPage extends Page {
 
     private final String matchCenterTitle =
-            "//*[contains(normalize-space(.), 'Матчи на сегодня')]"
-                    + " | //*[contains(normalize-space(.), 'Матчи по футболу')]";
-
-    private final String matchCards =
-            "//a[contains(normalize-space(.), 'Подробнее о матче')]";
+            "//h1[contains(normalize-space(.), 'Матчи по футболу')]"
+                    + " | //h1[contains(normalize-space(.), 'Матчи')]";
 
     private final String footballLink =
-            "//a[contains(@href, '/stat/football/') and contains(normalize-space(.), 'Футбол')]";
+            "//a[contains(@href, '/stat/football/') and contains(normalize-space(.), 'футбол')]";
 
     private final String tennisLink =
-            "//a[contains(@href, '/stat/tennis/') and contains(normalize-space(.), 'Теннис')]";
+            "//a[contains(@href, '/stat/tennis/') and contains(normalize-space(.), 'теннис')]";
 
     private final String hockeyLink =
-            "//a[contains(@href, '/stat/hockey/') and contains(normalize-space(.), 'Хоккей')]";
+            "//a[contains(@href, '/stat/hockey/') and contains(normalize-space(.), 'хоккей')]";
 
     private final String yesterdayLink =
-            "//a[contains(@href, '/stat/football/yesterday/') and contains(normalize-space(.), 'Футбол вчера')]";
+            "//a[contains(@href, '/stat/football/yesterday/')]";
 
     private final String tomorrowLink =
-            "//a[contains(@href, '/stat/football/tomorrow/') and contains(normalize-space(.), 'Футбол завтра')]";
+            "//a[contains(@href, '/stat/football/tomorrow/')]";
 
-    private final String liveMatchInfo =
-            "//*[contains(normalize-space(.), 'Матч идёт')]"
-                    + " | //*[contains(normalize-space(.), 'П1')]"
-                    + " | //*[contains(normalize-space(.), 'П2')]";
+    private final String matchCards =
+            "//a[contains(@href, '/stat/futbol/') "
+                    + "and not(contains(@href, '/tournament/'))]";
 
-    private final String matchDetailsInfo =
-            "//*[contains(normalize-space(.), 'Матч')]"
+    private final String matchListInfo =
+            "//*[contains(normalize-space(.), 'Не начался')]"
+                    + " | //*[contains(normalize-space(.), 'Окончен')]"
+                    + " | //*[contains(normalize-space(.), 'Идет сейчас')]"
+                    + " | //*[contains(normalize-space(.), 'Показать еще')]";
+
+    private final String matchPageInfo =
+            "//*[contains(normalize-space(.), 'П1')]"
+                    + " | //*[contains(normalize-space(.), 'П2')]"
+                    + " | //*[contains(normalize-space(.), 'ТБ')]"
+                    + " | //*[contains(normalize-space(.), 'ТМ')]"
                     + " | //*[contains(normalize-space(.), 'Счёт')]"
                     + " | //*[contains(normalize-space(.), 'Статистика')]"
-                    + " | //*[contains(normalize-space(.), 'П1')]"
-                    + " | //*[contains(normalize-space(.), 'П2')]";
-
-    private final String rfplTournamentTable =
-            "//a[@href='/stat/football/tournament/89/' and contains(normalize-space(.), 'РФПЛ')]";
-
-    private final String khlTournamentTable =
-            "//a[@href='/stat/hockey/tournament/636/' and contains(normalize-space(.), 'КХЛ')]";
-
-    private final String tournamentTableInfo =
-            "//table"
-                    + " | //*[contains(normalize-space(.), 'Турнир')]"
-                    + " | //*[contains(normalize-space(.), 'Таблица')]"
-                    + " | //*[contains(normalize-space(.), 'Команда')]"
-                    + " | //*[contains(normalize-space(.), 'Очки')]";
+                    + " | //*[contains(normalize-space(.), 'Матч')]"
+                    + " | //*[contains(normalize-space(.), 'Не начался')]"
+                    + " | //*[contains(normalize-space(.), 'Окончен')]"
+                    + " | //*[contains(normalize-space(.), 'Идет сейчас')]";
 
     public StatPage(WebDriver driver) {
         super(driver);
@@ -88,38 +83,71 @@ public class StatPage extends Page {
     }
 
     public boolean hasMatchCenterHeader() {
-        return isElementPresent(matchCenterTitle)
-                || isTextPresent("Сегодня")
-                || isTextPresent("Завтра")
-                || isTextPresent("Матчи");
+        return isElementPresent(matchCenterTitle);
     }
 
     public boolean hasSportNavigation() {
         return isElementPresent(footballLink)
-                && isElementPresent(tennisLink)
-                && isElementPresent(hockeyLink);
+                || isElementPresent(tennisLink)
+                || isElementPresent(hockeyLink);
     }
 
     public boolean hasDayNavigation() {
         return isElementPresent(yesterdayLink)
-                && isElementPresent(footballLink)
-                && isElementPresent(tomorrowLink);
+                || isElementPresent(tomorrowLink)
+                || isTextPresent("Сегодня")
+                || isTextPresent("Завтра")
+                || isTextPresent("Вчера");
     }
 
     public boolean hasMatches() {
         return isElementPresent(matchCards)
-                || isElementPresent(liveMatchInfo);
+                || isElementPresent(matchListInfo);
+    }
+
+    public boolean hasClickableMatches() {
+        return !findElementsByXpath(matchCards).isEmpty();
+    }
+
+    public boolean hasFootballPageContent() {
+        return hasMatchCenterHeader()
+                && isTextPresent("футбол");
+    }
+
+    public boolean hasTomorrowFootballPageContent() {
+        return hasMatchCenterHeader()
+                && driver.getCurrentUrl().contains("/stat/football/tomorrow/");
+    }
+
+    public int getVisibleMatchesCount() {
+        return findElementsByXpath(matchCards).size();
+    }
+
+    public String getFirstMatchText() {
+        List<WebElement> matches = findElementsByXpath(matchCards);
+
+        if (matches.isEmpty()) {
+            throw new IllegalStateException("Не найдены кликабельные карточки матчей");
+        }
+
+        return matches.get(0).getText().trim();
     }
 
     public void openFirstMatch() {
         List<WebElement> matches = findElementsByXpath(matchCards);
 
         if (matches.isEmpty()) {
-            throw new IllegalStateException("Не найдены карточки матчей");
+            throw new IllegalStateException("Не найдены кликабельные карточки матчей");
         }
 
-        scrollTo(matches.get(0));
-        matches.get(0).click();
+        WebElement match = matches.get(0);
+
+        System.out.println("Открываем матч:");
+        System.out.println(match.getText());
+        System.out.println("href = " + match.getAttribute("href"));
+
+        scrollTo(match);
+        jsClick(match);
     }
 
     public boolean hasMatchPageContent() {
@@ -132,23 +160,17 @@ public class StatPage extends Page {
     }
 
     public boolean hasMatchDetails() {
-        return isElementPresent(matchDetailsInfo);
+        return isElementPresent(matchPageInfo);
     }
 
-    public boolean hasTournamentLinks() {
-        return isElementPresent(rfplTournamentTable)
-                && isElementPresent(khlTournamentTable);
+    public String getMatchPageTitle() {
+        return findByXpath("//h1").getText().trim();
     }
 
-    public void openRfplTournamentTable() {
-        openPath("/stat/football/tournament/89/");
-    }
-
-    public void openKhlTournamentTable() {
-        openPath("/stat/hockey/tournament/636/");
-    }
-
-    public boolean hasTournamentTableContent() {
-        return isElementPresent(tournamentTableInfo);
+    private void jsClick(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();",
+                element
+        );
     }
 }
